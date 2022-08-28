@@ -9,7 +9,6 @@ public class RandomWord {
         while (!StdIn.isEmpty()) {
             String s = StdIn.readString();
             boolean b = StdRandom.bernoulli(1 / i);
-            StdOut.println(b);
             if (b) {
                 champion = s;
             }
