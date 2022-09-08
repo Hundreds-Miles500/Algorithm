@@ -103,13 +103,5 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
-        Percolation per = new Percolation(4);
-        per.open(1, 1);
-        per.open(1, 2);
-        per.open(2, 2);
-        StdOut.println(per.isFull(2, 2));
-        // per.grid.union(2, 6);
-        // StdOut.println(per.xyto1D(2, 2));
-        // per.grid.
     }
 }
