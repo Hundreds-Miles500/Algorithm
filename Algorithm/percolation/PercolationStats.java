@@ -19,6 +19,7 @@ public class PercolationStats {
         size = n;
         perarrays = new double[trials];
         pernum = trials;
+        Monte_Carlo();
     }
 
     // check n and trials
@@ -76,10 +77,10 @@ public class PercolationStats {
     }
 
     public static void main(String[] args) {
-        int T = Integer.parseInt(args[0]);
-        int n = Integer.parseInt(args[1]);
+        int T = Integer.parseInt(args[1]);
+        int n = Integer.parseInt(args[0]);
         PercolationStats perstats = new PercolationStats(n, T);
-        perstats.Monte_Carlo();
+        // perstats.Monte_Carlo();
         StdOut.println("mean = " + perstats.mean());
         StdOut.println("stddev = " + perstats.stddev());
         StdOut.println("95% confidence interval = [" + perstats.confidenceLo() + ", "

@@ -14,7 +14,7 @@ public class Percolation {
     // creates n-by-n grid, with all sites initially blocked
     public Percolation(int n) {
         // Corner case
-        if (n < 0) throw new IllegalArgumentException("n is negative");
+        if (n <= 0) throw new IllegalArgumentException("n is negative");
         // Initialize
         grid1 = new WeightedQuickUnionUF(n * n + 2);
         grid2 = new WeightedQuickUnionUF(n * n + 2);
@@ -38,9 +38,9 @@ public class Percolation {
     // validate the index
     private void isOut(int row, int col) {
         if (row <= 0 || row > size)
-            throw new IndexOutOfBoundsException("row index i out of bounds");
+            throw new IllegalArgumentException("row index i out of bounds");
         if (col <= 0 || col > size)
-            throw new IndexOutOfBoundsException("col index j out of bounds");
+            throw new IllegalArgumentException("col index j out of bounds");
     }
 
     private boolean isOutTrue(int row, int col) {
@@ -52,6 +52,10 @@ public class Percolation {
     // opens the site (row, col) if it is not open already
     public void open(int row, int col) {
         isOut(row, col);
+        // check for double open
+        if (isOpen(row, col)) {
+            return;
+        }
         int index = xyto1D(row, col);
         siteval[index] = 1;
         // open sites number increase
