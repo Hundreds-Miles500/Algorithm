@@ -33,8 +33,8 @@ public class PercolationStats {
     private int percolation(int n) {
         Percolation per = new Percolation(n);
         while (true) {
-            int x = StdRandom.uniform(1, n + 1);
-            int y = StdRandom.uniform(1, n + 1);
+            int x = StdRandom.uniformInt(1, n + 1);
+            int y = StdRandom.uniformInt(1, n + 1);
             if (!per.isOpen(x, y)) per.open(x, y);
             if (per.percolates()) {
                 return per.numberOfOpenSites();
