@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.StdRandom;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -7,12 +8,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] RQ;
     private int current;
     private int size;
+    private boolean needRandom;
 
     // construct an empty randomized queue
     public RandomizedQueue() {
         RQ = (Item[]) new Object[10];
         current = 0;
         size = 0;
+        needRandom = false;
     }
 
     // is the randomized queue empty?
@@ -40,12 +43,16 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (current == RQ.length) resize(2 * size);
         RQ[current++] = item;
         size++;
+        if (!needRandom) needRandom = true;
     }
 
     // remove and return a random item
     public Item dequeue() {
         if (isEmpty()) throw new NoSuchElementException("The Queues is empty");
-        StdRandom.shuffle(RQ, 0, current);
+        if (needRandom) {
+            StdRandom.shuffle(RQ, 0, current);
+            needRandom = false;
+        }
         Item item = RQ[--current];
         size--;
         RQ[current] = null;
@@ -61,9 +68,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private class RQIterator implements Iterator<Item> {
         private int x;
+        Item[] RQ2;
+
 
         public RQIterator() {
             StdRandom.shuffle(RQ, 0, current);
+            RQ2 = Arrays.copyOf(RQ, RQ.length);
         }
 
         public boolean hasNext() {
@@ -76,7 +86,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         public Item next() {
             if (x == current) throw new NoSuchElementException("No more next");
-            return RQ[x++];
+            return RQ2[x++];
         }
     }
 
@@ -89,16 +99,17 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // unit testing (required)
     public static void main(String[] args) {
         RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             rq.enqueue(i);
         }
         for (int a : rq) {
-            for (int b : rq) {
-                System.out.print(a + "-" + b + " ");
-            }
+            System.out.print(a + "-");
         }
-        for (int i = 0; i < 5; i++) {
-            System.out.print(rq.dequeue());
+        System.out.println();
+        for (int b : rq) {
+            System.out.print(b + "-");
         }
+
+
     }
 }

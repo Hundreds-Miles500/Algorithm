@@ -104,12 +104,6 @@ public class Deque<Item> implements Iterable<Item> {
         return new DequeIterator();
     }
 
-    private void printallitems(Deque<Item> deque) {
-        for (Item item : deque) {
-            System.out.println(item);
-        }
-    }
-
     // unit testing (required)
     public static void main(String[] args) {
         Deque<Integer> deque = new Deque<Integer>();
