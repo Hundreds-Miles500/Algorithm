@@ -45,6 +45,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     public Item dequeue() {
         StdRandom.shuffle(RQ, 0, current);
         Item item = RQ[--current];
+        size--;
         RQ[current] = null;
         if (size > 0 && size == RQ.length / 4) resize(RQ.length / 2);
         return item;
