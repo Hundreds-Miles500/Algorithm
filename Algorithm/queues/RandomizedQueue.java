@@ -36,6 +36,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // add the item
     public void enqueue(Item item) {
+        if (item == null) throw new IllegalArgumentException("Item is null");
         if (current == RQ.length) resize(2 * size);
         RQ[current++] = item;
         size++;
@@ -43,6 +44,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // remove and return a random item
     public Item dequeue() {
+        if (isEmpty()) throw new NoSuchElementException("The Queues is empty");
         StdRandom.shuffle(RQ, 0, current);
         Item item = RQ[--current];
         size--;
@@ -53,6 +55,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // return a random item (but do not remove it)
     public Item sample() {
+        if (isEmpty()) throw new NoSuchElementException("The Queues is empty");
         return RQ[StdRandom.uniformInt(current)];
     }
 
@@ -86,7 +89,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // unit testing (required)
     public static void main(String[] args) {
         RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5; i++) {
             rq.enqueue(i);
         }
         for (int a : rq) {
@@ -94,7 +97,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
                 System.out.print(a + "-" + b + " ");
             }
         }
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5; i++) {
             System.out.print(rq.dequeue());
         }
     }
