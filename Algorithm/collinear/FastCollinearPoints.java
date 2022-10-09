@@ -14,12 +14,9 @@ import java.util.Arrays;
 public class FastCollinearPoints {
     private ArrayList<LineSegment> lines;
 
-    public FastCollinearPoints() {
-        throw new IllegalArgumentException("Points array is null");
-    }
-
     // finds all line segments containing 4 or more points
     public FastCollinearPoints(Point[] points) {
+        if (points == null) throw new IllegalArgumentException("Null points array");
         lines = new ArrayList<LineSegment>();
         int counts = 0;
         Point start, end;

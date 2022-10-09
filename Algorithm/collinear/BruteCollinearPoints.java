@@ -14,12 +14,9 @@ import java.util.Arrays;
 public class BruteCollinearPoints {
     private ArrayList<LineSegment> lines;
 
-    public BruteCollinearPoints() {
-        throw new IllegalArgumentException("Point array is null");
-    }
-
     // finds all line segments containing 4 points
     public BruteCollinearPoints(Point[] points) {
+        if (points == null) throw new IllegalArgumentException("Null points array");
         lines = new ArrayList<LineSegment>();
         Arrays.sort(points);
         for (int i = 0; i < points.length; i++) {
