@@ -16,13 +16,23 @@ public class BruteCollinearPoints {
 
     // finds all line segments containing 4 points
     public BruteCollinearPoints(Point[] points) {
+        // test null array
         if (points == null) throw new IllegalArgumentException("Null points array");
+        // test null points
+        for (int i = 0; i < points.length; i++) {
+            if (points[i] == null) throw new IllegalArgumentException("some point is null");
+        }
+        // test repeated points
+        for (int i = 0; i < points.length; i++) {
+            for (int j = i + 1; j < points.length; j++) {
+                if (points[i].compareTo(points[j]) == 0)
+                    throw new IllegalArgumentException("repeated points");
+            }
+        }
         lines = new ArrayList<LineSegment>();
         Arrays.sort(points);
         for (int i = 0; i < points.length; i++) {
-            if (points[i] == null) throw new IllegalArgumentException("some point is null point.");
             for (int j = i + 1; j < points.length; j++) {
-                if (points[i] == points[j]) throw new IllegalArgumentException("Repeat elements");
                 for (int k = j + 1; k < points.length; k++) {
                     if (points[i].slopeTo(points[j]) == points[j].slopeTo(points[k])) {
                         for (int h = k + 1; h < points.length; h++) {
